@@ -54,7 +54,6 @@ public class Quartos {
         this.chave = devolucaoChave;
     }
     
-    //medotos
     //adição de hospedes no quarto
     public synchronized void AdicaoHospede(Hospedes hospede) {
         hospedes.add(hospede);

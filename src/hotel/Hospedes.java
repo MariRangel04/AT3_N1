@@ -1,98 +1,93 @@
 package hotel;
 
-import java.lang.Thread;
+public class Hospedes extends Thread {
+    //atributos
+    private String nome;
+    private int qtdPessoas;
+    private Quartos[] quartos;
 
-public class Hospedes extends Thread{
-	private String nome;
-	private int qtdPessoas;
-	private Quartos[] quartos;
+    //construtores
+    public Hospedes(String nome, int qtdPessoas, Quartos[] quartos) {
+        this.nome = nome;
+        this.qtdPessoas = qtdPessoas;
+        this.quartos = quartos;
+    }
 
-	public Hospedes(String nome, int qtdPessoas, Quartos[] quartos) {
-		this.setNome(nome);
-		this.setQtdPessoas(qtdPessoas);
-		this.setQuartos(quartos);
-	}
+    @Override
+    public void run() {
+        try {
+            Quartos quarto = getQuartoDisponivel();
+            if (quarto != null) {
+                synchronized (quarto) {
+                    if (!quarto.Ocupado() && quarto.DevolucaoChave()) {
+                        realizarCheckin(quarto);
+                        Thread.sleep(2000);  // Simula estadia do hospede
+                        realizarCheckout(quarto);
+                        limparQuarto(quarto);
+                    } else {
+                        System.out.println("\n\033[0;31m" + nome + " não possui quarto para checkin\033[0m");
+                    }
+                }
+            } else {
+                System.out.println("\n\033[0;31m" + nome + " não conseguiu reservar um quarto.\033[0m");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void run() {
-		System.out.println("Iniciei Thread: " + this.getNome());
-		try {
-			Quartos quartos = getQDisponiveis();
-			if(quartos != null) {
-				synchronized (quartos) {
-					if (!quartos.Ocupado() && quartos.DevolucaoChave()) {
-						quartos.setOcupado(true);
-						quartos.setDevolucaoChave(false);
-						System.out.println("\033[32m\033[1m*------------------------------------------------------------*\033[0m\033[0m");
-						System.out.println("\033[32m\033[1m| "+ nome + " fez CHECKIN no quarto " + quartos.getNumero()+"|\033[0m\033[0m");
-						System.out.println("\033[32m\033[1m*------------------------------------------------------------*\033[0m\033[0m");
-						Thread.sleep(2000);
-						quartos.setOcupado(false);
-						quartos.setDevolucaoChave(true);
-						quartos.setDevolucaoChave(true);
-						System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-						System.out.println("\\033[32m\\033[1m| "+ nome + " fez CHECKOUT no quarto " + quartos.getNumero()+"|\\033[32m\\033[1m");
-						System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-						limparQuarto(quartos);;
-					}
-					else {
-						System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-						System.out.println("\\033[32m\\033[1m|"+nome +" nao possui quarto para CHECKIN" +"|\\033[32m\\033[1m");
-						System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-					}
-				}
-			}else {
-				System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-				System.out.println("\\033[32m\\033[1m|"+nome +" nao  conseguio uma reserva" +"|\\033[32m\\033[1m");
-				System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+    public void setQtdPessoas(int qtdPessoas) {
+        this.qtdPessoas = qtdPessoas;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    //metodos
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    //verifica se quarto esta disponivel ou não
+    private Quartos getQuartoDisponivel() {
+        for (Quartos quarto : quartos) {
+            if (!quarto.Ocupado() && quarto.DevolucaoChave()) {
+                return quarto;
+            }
+        }
+        return null;
+    }
 
-	public int getQtdPessoas() {
-		return qtdPessoas;
-	}
+    // Realiza o check-in do hóspede
+    private void realizarCheckin(Quartos quarto) {
+        quarto.setOcupado(true);
+        quarto.setDevolucaoChave(false);
+        System.out.println("\n\033[0;32m->" + nome + " realizou CHECKIN no quarto " + quarto.getNumero() + "\033[0m");
+    }
 
-	public void setQtdPessoas(int qtdPessoas) {
-		this.qtdPessoas = qtdPessoas;
-	}
+    // Realiza o check-out do hóspede
+    private void realizarCheckout(Quartos quarto) {
+        quarto.setOcupado(false);
+        quarto.setDevolucaoChave(true);
+        System.out.println("\n\033[0;32m->" + nome + " fez o CHECKOUT do quarto " + quarto.getNumero() + "\033[0m");
+    }
 
-	public Quartos[] getQuartos() {
-		return quartos;
-	}
+    // Limpa o quarto após o check-out
+    private void limparQuarto(Quartos quarto) {
+        System.out.println("SENDO LIMPO:");
+        System.out.println("Servico de quarto " + quarto.getNumero() + "");
 
-	public void setQuartos(Quartos[] quartos) {
-		this.quartos = quartos;
-	}
-	//verificando se a quartos disponiveis 
-	private Quartos getQDisponiveis() {
-		for(Quartos quarto : quartos) {
-			if (!quarto.Ocupado()&& quarto.DevolucaoChave()) {
-				return quarto;
-			}
-		}
-		return null;
-	}
-	//limparndo o quarto 
-	private void limparQuarto(Quartos quartos) {
-		System.out.println("\\03331m*------------------------------------------------------------*\\033[0m");
-		System.out.println("\\033[32m\\033[1m| Serviso de quarto :"+quartos.getNumero()+"|\\033[32m\\033[1m");
-		System.out.println("\\033[32m\\033[1m*------------------------------------------------------------*\\033[32m\\033[1m");
         // quarto esta disponivel para alocação novo hospede
-        quartos.setDevolucaoChave(true);
-        quartos.setOcupado(false);
+        quarto.setDevolucaoChave(true);
+        quarto.setOcupado(false);
         System.out.println("\nPRONTO:");
-        System.out.println("Quarto " + quartos.getNumero() + " limpo e pronto para ocupação.");
-		
-	}
+        System.out.println("Quarto " + quarto.getNumero() + " limpo e pronto para ocupação.");
+    }
+
+    //get e sets
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getQtdPessoas() {
+        return qtdPessoas;
+    }
 }

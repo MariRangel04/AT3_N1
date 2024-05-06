@@ -1,39 +1,71 @@
 package hotel;
 
+import java.util.concurrent.BlockingQueue;
+
 public class Recepcionistas extends Thread {
-//stributos - listas
-    private Hospedes espera;
-    private Quartos quartoLivre;
-    private Quartos limpezaQuarto;
-    
-    //construtores
-    public Recepcionistas(Hospedes espera, Quartos quartoLivre, Quartos limpezaQuarto) {
-        this.setEspera(espera);
-        this.setQuartoLivre(quartoLivre);
-        this.setLimpezaQuarto(limpezaQuarto);
+    private BlockingQueue<Hospedes> espera;
+    private BlockingQueue<Quartos> quartoLivre;
+    private BlockingQueue<Quartos> limpezaQuarto;
+
+    public Recepcionistas(BlockingQueue<Hospedes> espera, BlockingQueue<Quartos> quartoLivre, BlockingQueue<Quartos> limpezaQuarto) {
+        this.espera = espera;
+        this.quartoLivre = quartoLivre;
+        this.limpezaQuarto = limpezaQuarto;
     }
 
-	public Hospedes getEspera() {
-		return espera;
-	}
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                Hospedes hospede = espera.take();
+                Quartos quarto = quartoLivre.take();
+                synchronized (quarto) {
+                    if (isQuartoDisponivel(quarto)) {
+                        adicionarHospedeAoQuarto(hospede, quarto);
+                    } else {
+                        espera.offer(hospede);
+                    }
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void setEspera(Hospedes espera) {
-		this.espera = espera;
-	}
+    private boolean isQuartoDisponivel(Quartos quarto) {
+        return !quarto.Ocupado() && quarto.DevolucaoChave() && !quartoEmLimpeza(quarto);
+    }
 
-	public Quartos getQuartoLivre() {
-		return quartoLivre;
-	}
+    private void adicionarHospedeAoQuarto(Hospedes hospede, Quartos quarto) throws InterruptedException {
+        if (hospede.getQtdPessoas() <= (4 - quarto.getNumeroHospedes())) {
+            quarto.AdicaoHospede(hospede);
+            quarto.setOcupado(true);
+            quarto.setDevolucaoChave(false);
+            System.out.println("\u001B[32m--> Recepcionista RESERVOU o quarto " + quarto.getNumero() + " para: " + hospede.getNome() + "\u001B[0m");
+        } else {
+            dividirGrupoEmQuartos(hospede);
+        }
+    }
 
-	public void setQuartoLivre(Quartos quartoLivre) {
-		this.quartoLivre = quartoLivre;
-	}
+    private void dividirGrupoEmQuartos(Hospedes hospede) throws InterruptedException {
+        while (hospede.getQtdPessoas() > 0) {
+            Quartos novoQuarto = quartoLivre.take();
+            synchronized (novoQuarto) {
+                if (isQuartoDisponivel(novoQuarto)) {
+                    int vagasRestantes = 4 - novoQuarto.getNumeroHospedes();
+                    int pessoasNoGrupo = hospede.getQtdPessoas();
+                    int pessoasParaAdicionar = Math.min(pessoasNoGrupo, vagasRestantes);
+                    hospede.setQtdPessoas(pessoasNoGrupo - pessoasParaAdicionar);
+                    novoQuarto.adicaoHospedeMedia(hospede, pessoasParaAdicionar);
+                    novoQuarto.setOcupado(true);
+                    novoQuarto.setDevolucaoChave(false);
+                    System.out.println("\u001B[35m--> Recepcionista LIBEROU o quarto " + novoQuarto.getNumero() + " para parte do grupo de " + hospede.getNome() + "\u001B[0m");
+                }
+            }
+        }
+    }
 
-	public Quartos getLimpezaQuarto() {
-		return limpezaQuarto;
-	}
-
-	public void setLimpezaQuarto(Quartos limpezaQuarto) {
-		this.limpezaQuarto = limpezaQuarto;
-	}
+    private boolean quartoEmLimpeza(Quartos quarto) {
+        return limpezaQuarto.contains(quarto);
+    }
 }

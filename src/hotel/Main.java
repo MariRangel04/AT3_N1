@@ -20,6 +20,17 @@ public class Main {
         for (int i = 0; i < NUMERO_QUARTOS; i++) {
             quartos[i] = new Quartos(i + 1); 
         }
+
+
+        for (int i = 0; i < 5; i++) {
+            new Recepcionistas(espera, quartosLivre, limpezaQuarto).start(); 
+        }
+
+        try {
+            Thread.sleep(1000); 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
    
         for (int i = 0; i < NUMERO_HOSPEDES; i++) {
             new Hospedes("Hóspede " + (i + 1), 1, quartos).start(); 
