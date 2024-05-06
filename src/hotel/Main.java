@@ -15,12 +15,17 @@ public class Main {
         BlockingQueue<Hospedes> espera = new ArrayBlockingQueue<>(NUMERO_HOSPEDES);
         BlockingQueue<Quartos> quartosLivre = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
         BlockingQueue<Quartos> limpezaQuarto = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
-        
+       
+		
         Quartos[] quartos = new Quartos[NUMERO_QUARTOS];
         for (int i = 0; i < NUMERO_QUARTOS; i++) {
             quartos[i] = new Quartos(i + 1); 
         }
-
+        
+        // Crie e inicie as threads para as Camareiras
+        for (int i = 0; i < 10; i++) {
+            new Camareiras(quartos).start(); 
+        }
 
         //comeca a execucao do Thread
         for (int i = 0; i < 5; i++) {
