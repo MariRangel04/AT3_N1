@@ -1,15 +1,7 @@
 package hotel;
 
-<<<<<<< HEAD
-
-
-public class Main {
-    public static void main(String[] args) {
-    	System.out.println("OI");
-
-    }
-
-=======
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class Main {
 	
@@ -18,9 +10,14 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		//ArrayBlockingQueue: Permite que várias threads adicionem elementos à fila ou removam elementos dela sem se corromperem mutuamente.
+        BlockingQueue<Hospedes> espera = new ArrayBlockingQueue<>(NUMERO_HOSPEDES);
+        BlockingQueue<Quartos> quartosLivre = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
+        BlockingQueue<Quartos> limpezaQuarto = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
+        
+   
         for (int i = 0; i < NUMERO_HOSPEDES; i++) {
-            new Hospedes("Hóspede " + (i + 1), 1, null).start(); // Crie e inicie 50 Hóspedes
+            new Hospedes("Hóspede " + (i + 1), 1, null).start(); 
         }
 	}
->>>>>>> 73a8f8b3e4bdee6435167574c207c3aea281aed6
 }

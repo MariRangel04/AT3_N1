@@ -1,13 +1,14 @@
 package hotel;
 
 import java.lang.Thread;
+import java.util.ArrayList;
 
 public class Hospedes extends Thread{
 	private String nome;
 	private int qtdPessoas;
-	private Quartos[] quartos;
+	private ArrayList<Quartos> quartos;
 
-	public Hospedes(String nome, int qtdPessoas, Quartos[] quartos) {
+	public Hospedes(String nome, int qtdPessoas, ArrayList<Quartos> quartos) {
 		this.setNome(nome);
 		this.setQtdPessoas(qtdPessoas);
 		this.setQuartos(quartos);
@@ -29,11 +30,11 @@ public class Hospedes extends Thread{
 		this.qtdPessoas = qtdPessoas;
 	}
 
-	public Quartos[] getQuartos() {
+	public ArrayList<Quartos> getQuartos() {
 		return quartos;
 	}
 
-	public void setQuartos(Quartos[] quartos) {
+	public void setQuartos(ArrayList<Quartos> quartos) {
 		this.quartos = quartos;
 	}
 	

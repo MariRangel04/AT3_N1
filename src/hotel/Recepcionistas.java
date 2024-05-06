@@ -12,6 +12,4 @@ public class Recepcionistas extends Thread {
         this.quartoLivre = quartoLivre;
         this.limpezaQuarto = limpezaQuarto;
     }
-
-   
 }
