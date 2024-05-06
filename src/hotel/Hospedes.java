@@ -1,5 +1,5 @@
 package hotel;
 
-public class Hospedes extends Thread {
+public class Hospedes  {
 	
 }
