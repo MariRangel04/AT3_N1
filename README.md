@@ -3,7 +3,6 @@
 ## Descrição
 
 Este projeto foi desenvolvido como parte da disciplina de Programação Concorrente e Distribuída, para a obtenção de nota na atividade prática coletiva 1. O objetivo é criar um sistema em Java 17 que simule um sistema de reserva e controle de quartos em um hotel, utilizando threads. O sistema deve representar várias entidades, incluindo quartos, hóspedes, camareiras e recepcionistas, e seguir uma série de regras, como alocação de hóspedes em quartos vagos, capacidade máxima de quartos, limpeza dos quartos após a saída dos hóspedes, entre outras.
-- [PDF da Atividade prática coletiva 1](https://github.com/matheus58/Atividade_hotel/files/15210769/AT3_N1.-.Atividade.pratica.coletiva.1.pdf)
 
 ## Sumário
 
@@ -13,6 +12,8 @@ Este projeto foi desenvolvido como parte da disciplina de Programação Concorre
 - [Colaboradores](#colaboradores)
 
 ## Tutorial: como fazer funcionar o projeto
+
+[PDF da Atividade prática coletiva 1](https://github.com/matheus58/Atividade_hotel/files/15210769/AT3_N1.-.Atividade.pratica.coletiva.1.pdf)
 
 Após clonar o repositório, pode ocorrer erro na hora de buildar, siga estes passos para garantir que o projeto funcione corretamente:
 
@@ -31,9 +32,11 @@ Após clonar o repositório, pode ocorrer erro na hora de buildar, siga estes pa
 
 ## O que cada classe faz
 
-- `Classe1`: Descrição do que a Classe1 faz.
-- `Classe2`: Descrição do que a Classe2 faz.
-- `Classe3`: Descrição do que a Classe3 faz.
+- `Hospedes`: Cria e gerencia o hospede 
+- `Camareiras`: Responsavel por criar um Thread
+- `Quartos`: Cria, gerencia os quartos e gerencia as pessoas dentro pertencentes aquela Instância.
+- `Recepicionistas`: Responsavel por iniciar todo o fluxo do sistema
+- `Main`
 
 ## Colaboradores
 
@@ -43,16 +46,7 @@ Após clonar o repositório, pode ocorrer erro na hora de buildar, siga estes pa
   [![Gustavo Horestee Santos Barros](https://avatars.githubusercontent.com/GustavoHoreste?s=100)](https://github.com/GustavoHoreste)
 - ### Pedro Henrique Oliveira Marques (Matrícula: UC22103216)
   [![Pedro Henrique Oliveira Marques](https://avatars.githubusercontent.com/phxdablio?s=100)](https://github.com/phxdablio)
-- ### Matheus (Matrícula: UC00000)
+- ### Matheus Vinyciusm Vieira Batista (Matrícula: UC22101794)
   [![Matheus](https://avatars.githubusercontent.com/matheus58?s=100)](https://github.com/matheus58)
 - ### Nathalia Gonçalves Silva (Matrícula: UC22200563)
   [![Nathalia](https://avatars.githubusercontent.com/nathi-gs?s=100)](https://github.com/nathi-gs)
-
-    
-    
-  
-
-
-
-
-

@@ -5,52 +5,64 @@ import java.util.List;
 
 public class Quartos {
 	//atributos
-	private int numero;
-	private boolean estaestadoQuarto;
-	private boolean chave;
-	private int capacidade;
-	private List<Hospedes> hospedes;
+    private int numero;
+    private boolean estaestadoQuarto;
+    private boolean chave;
+    private int capacidade;
+    private List<Hospedes> hospedes;
 
-	//construtor
-	public Quartos(int numero) {
-		this.numero = numero;
-		this.estaestadoQuarto = false;
-		this.chave = true;
-		this.hospedes = new ArrayList<>();
-		this.setCapacidade(4);
-	}
+    //construtor
+    public Quartos(int numero) {
+        this.numero = numero;
+        this.estaestadoQuarto = false;
+        this.chave = true;
+        this.hospedes = new ArrayList<>();
+        this.setCapacidade(4);
+    }
 
-	//get e set
-	public int getNumero() {
-		return numero;
-	}
-	public int getCapacidade() {
-		return capacidade;
-	}
-	public boolean Ocupado() {
-		return estaestadoQuarto;
-	}
-	public boolean DevolucaoChave() {
-		return chave;
-	}
+    //get e set
+    public int getNumero() {
+        return numero;
+    }
+    public int getCapacidade() {
+        return capacidade;
+    }
+    public boolean Ocupado() {
+        return estaestadoQuarto;
+    }
+    public boolean DevolucaoChave() {
+        return chave;
+    }
+    
+    public synchronized int getNumeroHospedes() {
+        return hospedes.size();
+    }
 
-	public synchronized int getNumeroHospedes() {
-		return hospedes.size();
-	}
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
 
-	public void setCapacidade(int capacidade) {
-		this.capacidade = capacidade;
-	}
+    public void setOcupado(boolean ocupado) {
+        this.estaestadoQuarto = ocupado;
+    }
+    
+    public void setDevolucaoChave(boolean devolucaoChave) {
+        this.chave = devolucaoChave;
+    }
+    
+    //medotos
+    //adição de hospedes no quarto
+    public synchronized void AdicaoHospede(Hospedes hospede) {
+        hospedes.add(hospede);
+    }
 
-	public void setOcupado(boolean ocupado) {
-		this.estaestadoQuarto = ocupado;
-	}
-
-	public void setDevolucaoChave(boolean devolucaoChave) {
-		this.chave = devolucaoChave;
-	}
+    public synchronized void adicaoHospedeMedia(Hospedes hospede, int quantidade) {
+        for (int i = 0; i < quantidade; i++) {
+            hospedes.add(hospede);
+        }
+    }
 }

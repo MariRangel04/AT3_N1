@@ -3,6 +3,7 @@ package hotel;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+
 public class Main {
 	
 	private static int NUMERO_QUARTOS = 10;
@@ -15,9 +16,13 @@ public class Main {
         BlockingQueue<Quartos> quartosLivre = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
         BlockingQueue<Quartos> limpezaQuarto = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
         
+        Quartos[] quartos = new Quartos[NUMERO_QUARTOS];
+        for (int i = 0; i < NUMERO_QUARTOS; i++) {
+            quartos[i] = new Quartos(i + 1); 
+        }
    
         for (int i = 0; i < NUMERO_HOSPEDES; i++) {
-            new Hospedes("Hóspede " + (i + 1), 1, null).start(); 
+            new Hospedes("Hóspede " + (i + 1), 1, quartos).start(); 
         }
 	}
 }
