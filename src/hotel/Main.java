@@ -22,6 +22,7 @@ public class Main {
         }
 
 
+        //comeca a execucao do Thread
         for (int i = 0; i < 5; i++) {
             new Recepcionistas(espera, quartosLivre, limpezaQuarto).start(); 
         }
