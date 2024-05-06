@@ -16,6 +16,11 @@ public class Main {
         BlockingQueue<Quartos> quartosLivre = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
         BlockingQueue<Quartos> limpezaQuarto = new ArrayBlockingQueue<>(NUMERO_QUARTOS);
         
+        // Crie e inicie as threads para as Camareiras
+        for (int i = 0; i < 10; i++) {
+            new Camareiras(quartos).start(); // Crie e inicie 10 Camareiras
+        }
+		
         Quartos[] quartos = new Quartos[NUMERO_QUARTOS];
         for (int i = 0; i < NUMERO_QUARTOS; i++) {
             quartos[i] = new Quartos(i + 1); 
