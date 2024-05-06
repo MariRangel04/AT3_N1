@@ -1,44 +1,53 @@
-# AT/N1 - Atividade pratica coletiva -Bimestre N1
-Crie um projeto (em Java 17) que simule um sistema de reserva e controle de quartos em um hotel, utilizando
-threads em Java. 
-- Quarto :
-    - No mínimo, devem existir 10 quartos;
-- Hóspede:
-    - Cada hóspede deve ser representado por uma thread;
-    - No mínimo, devem existir 50 hóspedes;
-- Camareira:
-    - Cada camareira deve ser representada por uma thread;
-    - No mínimo, devem existir 10 camareiras
-- Recepcionista:
-    - Cada recepcionista deve ser representado por uma thread;
-    - No mínimo, devem existir 5 recepcionistas;
+# Atividade_hotel
 
-E deve se basear na seguintes regras:<br>
-    - O hotel deve contar com vários recepcionistas, que trabalham juntos e **que devem alocar hóspedesapenas em quartos vagos**;<br>
-    - O hotel deve contar com várias camareiras;<br>
-    - Cada quarto possui capacidade para até 4 hóspedes e uma única chave;<br>
-    - Caso um grupo ou uma família possua mais do que 4 membros, eles devem ser divididos em vários quartos;<br>
-    - Quando os hóspedes de um quarto saem do hotel para passear, devem deixar a chave na recepção;<br>
-    - Uma camareira só pode entrar em um quarto caso ele esteja vago ou os hóspedes não estejam nele,ou seja, a chave esteja na recepção;<br>
-    - A limpeza dos quartos é feita sempre após a passagem dos hóspedes pelo quarto. Isso significa que toda vez que os hóspedes saem do 
-    quarto (para passear ou terminando sua estadia), deve haver a entrada de uma camareira para limpeza do quarto e os hóspedes só podem 
-    retornar após o fim da limpeza;<br>
-    - Um quarto vago que passa por limpeza não pode ser alocado para um hóspede novo;<br>
-    - Caso uma pessoa chegue e não tenha quartos vagos, ele deve esperar em uma fila até algum quarto
-      ficar vago. Caso a espera demore muito, ele passeia pela cidade e retorna após um tempo para tentar
-      alugar um quarto novamente;<br>
-    - Caso a pessoa tente duas vezes alugar um quarto e não consiga, ele deixa uma reclamação e vai embora.<br>
+## Descrição
 
-**Observações:**<br>
-    - Não há a possibilidade de, para um mesmo quarto, somente parte dos hóspedes saírem para passear.
-Ou saem todos ou nenhum;<br>
-    - **A implementação deve ser abrangente e simular várias situações:**  número diferentes de hóspedes
-chegando, grupos com mais de 4 pessoas, todos os quartos lotados, etc.<br>
-    - **Atentem-se para a descrição de cada regra!! Deve haver sincronia e coordenação entre as
-entidades.**
-    
-    
-    
+Este projeto foi desenvolvido como parte da disciplina de Programação Concorrente e Distribuída, para a obtenção de nota na atividade prática coletiva 1. O objetivo é criar um sistema em Java 17 que simule um sistema de reserva e controle de quartos em um hotel, utilizando threads. O sistema deve representar várias entidades, incluindo quartos, hóspedes, camareiras e recepcionistas, e seguir uma série de regras, como alocação de hóspedes em quartos vagos, capacidade máxima de quartos, limpeza dos quartos após a saída dos hóspedes, entre outras.
+- [PDF da Atividade prática coletiva 1](https://github.com/matheus58/Atividade_hotel/files/15210769/AT3_N1.-.Atividade.pratica.coletiva.1.pdf)
+
+## Sumário
+
+- [Tutorial: como fazer funcionar o projeto](#tutorial-como-fazer-funcionar-o-projeto)
+- [IDE e Versão Java](#ide-e-versão-java)
+- [O que cada classe faz](#o-que-cada-classe-faz)
+- [Colaboradores](#colaboradores)
+
+## Tutorial: como fazer funcionar o projeto
+
+Após clonar o repositório, pode ocorrer erro na hora de buildar, siga estes passos para garantir que o projeto funcione corretamente:
+
+1. Após o processo de clone, é possível que o arquivo 'JRE System Library' não apareça automaticamente. Para corrigir isso, clique com o botão direito na pasta "SRC" e selecione "Build Path" > "Configure Build Path".
+
+    <img src="https://github.com/matheus58/Atividade_hotel/assets/101297032/5e85e3bd-5508-4e65-ad3a-c26467200579" alt="Passo 1" width="300"/>
+
+2. Na janela que se abre, certifique-se de que a opção "JRE System" esteja ativada. Em seguida, clique em "Apply and Close".
+
+    <img src="https://github.com/matheus58/Atividade_hotel/assets/101297032/3192fbe8-a724-4d8c-943f-2da8cfdf7405" alt="Passo 2" width="300"/>
+
+## IDE e Versão Java
+
+- IDE: Eclipse
+- Versão Java: 17
+
+## O que cada classe faz
+
+- `Classe1`: Descrição do que a Classe1 faz.
+- `Classe2`: Descrição do que a Classe2 faz.
+- `Classe3`: Descrição do que a Classe3 faz.
+
+## Colaboradores
+
+- ### Maria Clara Fernandes Rangel (Matrícula: UC22102645)
+  [![Maria Clara Fernandes Rangel](https://avatars.githubusercontent.com/MariRangel04?s=100)](https://github.com/MariRangel04)
+- ### Gustavo Horestee Santos Barros (Matrícula: UC22102459)
+  [![Gustavo Horestee Santos Barros](https://avatars.githubusercontent.com/GustavoHoreste?s=100)](https://github.com/GustavoHoreste)
+- ### Pedro Henrique Oliveira Marques (Matrícula: UC22103216)
+  [![Pedro Henrique Oliveira Marques](https://avatars.githubusercontent.com/phxdablio?s=100)](https://github.com/phxdablio)
+- ### Matheus (Matrícula: UC00000)
+  [![Matheus](https://avatars.githubusercontent.com/matheus58?s=100)](https://github.com/matheus58)
+- ### Nathalia Gonçalves Silva (Matrícula: UC22200563)
+  [![Nathalia](https://avatars.githubusercontent.com/nathi-gs?s=100)](https://github.com/nathi-gs)
+
     
     
   
