@@ -1,15 +1,6 @@
 package hotel;
 
-<<<<<<< HEAD
 
-
-public class Main {
-    public static void main(String[] args) {
-    	System.out.println("OI");
-
-    }
-
-=======
 
 public class Main {
 	
@@ -21,6 +12,12 @@ public class Main {
         for (int i = 0; i < NUMERO_HOSPEDES; i++) {
             new Hospedes("Hóspede " + (i + 1), 1, null).start(); // Crie e inicie 50 Hóspedes
         }
+        
+        Quartos[] quartos = new Quartos[NUMERO_QUARTOS];
+        for (int i = 0; i < NUMERO_QUARTOS; i++) {
+            quartos[i] = new Quartos(i + 1); // Os números dos quartos começam em 1
+        }
+
 	}
->>>>>>> 73a8f8b3e4bdee6435167574c207c3aea281aed6
+
 }
