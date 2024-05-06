@@ -1,5 +1,5 @@
 package hotel;
 
-public class Camareiras  {
+public class Camareiras {
 	
 }
